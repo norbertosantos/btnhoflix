@@ -1,5 +1,18 @@
 import config from '../config';
 
+function getAllCategories() {
+  const URL_CATEGORIAS = `${config.URL_BACKEND}/categorias`;
+  return fetch(`${URL_CATEGORIAS}`)
+   .then(async (respostaDoServer) =>{
+      if (respostaDoServer.ok){
+        const resposta = await respostaDoServer.json();
+        return resposta;
+      }
+      throw new Error('Não foi possível retornar as categorias');
+
+  });
+}
+
 function getAllCategoriesWithVideos() {
   const URL_CATEGORIAS = `${config.URL_BACKEND}/categorias`;
   return fetch(`${URL_CATEGORIAS}?_embed=videos`)
@@ -13,5 +26,6 @@ function getAllCategoriesWithVideos() {
   });
 }
 export default {
+  getAllCategories,
   getAllCategoriesWithVideos,
 };
